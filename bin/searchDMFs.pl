@@ -1,6 +1,8 @@
 #!/bin/env perl
 use strict;
-my $version = '170707';
+my $version = '170710';
+use FindBin;
+use lib "$FindBin::Bin";
 ####
 #
 # This software compares two sets of genome fingerprints.
@@ -24,9 +26,16 @@ my $version = '170707';
 #
 ####
 
-my $fpc = "bin/fpc";
+my $fpc = "fpc";
 die "Cannot find fpc (the search engine)\n" unless -s $fpc;
 my($query, $target) = @ARGV;
+unless ($query) {
+	print "Usage: searchDMFs.pl query target\n";
+	print "       searchDMFs.pl fingerprints/genome1.outn.gz target.fp\n";
+	print "       searchDMFs.pl query  (will perform all comparisons within the query data set)\n";
+	exit;
+}
+
 
 my($qnames, $tnames, $L);
 
