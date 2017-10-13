@@ -146,11 +146,13 @@ foreach my $vl (@vls) {
 		my @v = ();
 		push @v, $count{$vl}{$_}[$col] foreach @keys;
 		my($avg, $std) = avgstd(\@v);
+		$std ||= 1;
 		$count{$vl}{$_}[$col] = ($count{$vl}{$_}[$col]-$avg)/$std foreach @keys;
 	}
 	# Normalize fingerprint per SNV pair key.
 	foreach my $sig (@keys) {
 		my($avg, $std) = avgstd($count{$vl}{$sig});
+		$std ||= 1;
 		$_ = ($_-$avg)/$std foreach @{$count{$vl}{$sig}};
 	}
 }
