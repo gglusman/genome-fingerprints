@@ -1,8 +1,7 @@
 #!/bin/env perl
 use strict;
-my $version = '170710';
-use FindBin;
-use lib "$FindBin::Bin";
+my $version = '171013';
+use FindBin qw($Bin);
 ####
 #
 # This software compares two sets of genome fingerprints.
@@ -26,7 +25,7 @@ use lib "$FindBin::Bin";
 #
 ####
 
-my $fpc = "fpc";
+my $fpc = "$Bin/fpc";
 die "Cannot find fpc (the search engine)\n" unless -s $fpc;
 my($query, $target) = @ARGV;
 unless ($query) {
