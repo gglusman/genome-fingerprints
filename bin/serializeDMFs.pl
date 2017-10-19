@@ -1,10 +1,14 @@
 #!/bin/env perl
 use strict;
-my $version = '170707';
+my $version = '170719';
 ####
 #
 # This software collects genome fingerprints into a database for efficient searching.
-# The method is described in Glusman et al., https://doi.org/10.1101/130807
+# The method is described in:
+#    Glusman G, Mauldin DE, Hood LE, Robinson M. Ultrafast Comparison of Personal
+#    Genomes via Precomputed Genome Fingerprints. Front Genet. 2017 Sep 26;8:136. doi:
+#    10.3389/fgene.2017.00136. eCollection 2017. PubMed PMID: 29018478; PubMed Central
+#    PMCID: PMC5623000.
 # 
 # Copyright 2017 by Gustavo Glusman, Institute for Systems Biology, Seattle, WA, USA.
 # It is provided by the Institute for Systems Biology as open source software,
