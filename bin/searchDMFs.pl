@@ -1,11 +1,15 @@
 #!/bin/env perl
 use strict;
-my $version = '171013';
+my $version = '171019';
 use FindBin qw($Bin);
 ####
 #
 # This software compares two sets of genome fingerprints.
-# The method is described in Glusman et al., https://doi.org/10.1101/130807
+# The method is described in:
+#    Glusman G, Mauldin DE, Hood LE, Robinson M. Ultrafast Comparison of Personal
+#    Genomes via Precomputed Genome Fingerprints. Front Genet. 2017 Sep 26;8:136. doi:
+#    10.3389/fgene.2017.00136. eCollection 2017. PubMed PMID: 29018478; PubMed Central
+#    PMCID: PMC5623000.
 # 
 # Copyright 2017 by Gustavo Glusman, Institute for Systems Biology, Seattle, WA, USA.
 # It is provided by the Institute for Systems Biology as open source software,
@@ -15,7 +19,7 @@ use FindBin qw($Bin);
 ####
 #
 # The first parameters is the query set. It can include one or more fingerprints in serialized format. If a non-serialized fingerprint is used as query, it is automatically serialized using the fingerprint size of the target set.
-# The second parameter is the target set: a serialized collection of fingerprints.
+# The second parameter is the target set: a serialized collection of fingerprints. If absent, all-against-all comparisons are performed in the query set.
 #
 ####
 #
@@ -29,9 +33,9 @@ my $fpc = "$Bin/fpc";
 die "Cannot find fpc (the search engine)\n" unless -s $fpc;
 my($query, $target) = @ARGV;
 unless ($query) {
-	print "Usage: searchDMFs.pl query target\n";
-	print "       searchDMFs.pl fingerprints/genome1.outn.gz target.fp\n";
-	print "       searchDMFs.pl query  (will perform all comparisons within the query data set)\n";
+	print "Usage: searchDMFs.pl fingerprints/genome1.outn.gz target.fp\n";
+	print "       searchDMFs.pl query-set target-set\n";
+	print "       searchDMFs.pl query-set  (will perform all comparisons within the query data set)\n";
 	exit;
 }
 
