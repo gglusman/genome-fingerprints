@@ -15,7 +15,7 @@ Preprint: http://www.biorxiv.org/content/early/2017/06/27/130807
 	`bin/serializeDMFs.pl` _myFingerprintCollection_ 120 _*.outn.gz_
 
 4. To compare a fingerprint to a database:  
-	`bin/searchDMFs.pl` _myFirstGenome.outn.gz myFingerprintCollection_  
+	`bin/searchDMFs.pl` _myGenome.outn.gz myFingerprintCollection_  
 	...see the data directory for an example database (CEPH1463 pedigree)
 
 5. To compare two databases:  
@@ -24,3 +24,4 @@ Preprint: http://www.biorxiv.org/content/early/2017/06/27/130807
 6. To perform all-against-all comparisons in one database:  
 	`bin/searchDMFs.pl` _aFingerprintCollection_
 
+This project is related to (but distinct from) the Genotype Fingerprints: https://github.com/gglusman/genotype-fingerprints
