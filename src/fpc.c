@@ -12,8 +12,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <unistd.h>
+
+#ifndef TRUE
+#  define TRUE (0 == 0)
+#endif /* TRUE */
+
+#ifndef FALSE
+#  define FALSE (! TRUE)
+#endif /* FALSE */
 
 #define ONE ((size_t) 1)
+
+float minValue = -2.0;
 
 typedef struct _FingerprintSet {
     int  fingerprints;
@@ -145,7 +156,9 @@ selfCompare(FingerprintSet *queryp)
                 }
                 r /= (qVar*tVar);
                 ++ target;
-                printf("%d\t%d\t%7f\n", query, target, r);
+                if (minValue <= r) {
+                    printf("%d\t%d\t%7f\n", query, target, r);
+                }
             }
         }
     }
@@ -232,10 +245,12 @@ compare1(FingerprintSet *queryp,
             r /= qVar*tVar;
             ++ target;
 
-            if (flipped) {
-                printf("%d\t%d\t%7f\n", target, query, r);
-            } else {
-                printf("%d\t%d\t%7f\n", query, target, r);
+            if (minValue <= r) {
+                if (flipped) {
+                    printf("%d\t%d\t%7f\n", target, query, r);
+                } else {
+                    printf("%d\t%d\t%7f\n", query, target, r);
+                }
             }
         }
 
@@ -307,32 +322,49 @@ compare(FingerprintSet *queryp,
 /*--------------------------------------------------------------------------------
 //
 */
-static char *USAGE = "Usage: %s <queryFile> [ <dbFile1> ... ]\n";
+static char *USAGE = "Usage: %s [ -t <threshold> ] <queryFile> [ <dbFile1> ... ]\n";
 
 int
 main(int   argc,
      char *argv[])
 {
     FingerprintSet query;
+    extern int   optind;
+    extern char *optarg;
+    int opt;
+    int usage = FALSE;
 
-    if (argc < 2) {
-        fprintf(stderr, USAGE, argv[0]);
-        fflush(stderr);
-        exit(0);
-    }
-    readFingerprintSet(argv[1],&query);
-    if (2 == argc) {
-        selfCompare(&query);
-    } else {
-        FingerprintSet db;
-        int i;
-        for (i = 2; i < argc; ++ i) {
-            readFingerprintSet(argv[i],&db);
-            compare(&query, &db);
-            free((void *) db.valuep);
+    while (-1 != (opt = getopt(argc,argv,"t:"))) {
+        switch (opt) {
+        case 't':
+            if (1 != sscanf(optarg,"%f",&minValue)) {
+                usage = TRUE;
+            }
+            break;
+        default:
+            usage = TRUE;
+            break;
         }
     }
-    free((void *) query.valuep);
+    if (argc == optind) { usage = TRUE; } 
+    if (! usage) {
+        readFingerprintSet(argv[optind++],&query);
+        if (optind == argc) {
+            selfCompare(&query);
+        } else {
+            FingerprintSet db;
+            while (optind < argc) {
+                readFingerprintSet(argv[optind++],&db);
+                compare(&query, &db);
+                free((void *) db.valuep);
+            }
+        }
+        free((void *) query.valuep);
+    }
+    if (usage) {
+        fprintf(stderr, USAGE, argv[0]);
+        fflush(stderr);
+    }
 }
 
 /* end of fpcompare.c */
