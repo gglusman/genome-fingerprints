@@ -70,6 +70,7 @@ foreach my $file (@files) {
 		open LST, $1;
 		while (<LST>) {
 			chomp;
+			($_) = split /\t/;
 			push @todo, $_ if !$done{$_} && -s $_;
 		}
 		close LST;
