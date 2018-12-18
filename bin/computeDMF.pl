@@ -1,6 +1,6 @@
 #!/bin/env perl
 use strict;
-my $version = '171019';
+my $version = '181217';
 ####
 #
 # This software computes a genome fingerprint for a single personal genome.
@@ -17,10 +17,10 @@ my $version = '171019';
 #
 ####
 #
-# Accepted input formats include VCF, RCF (ISB's range call format), and Complete Genomics' var and masterVar formats.
+# Accepted input formats include VCF, BCF, RCF (ISB's range call format), and Complete Genomics' var and masterVar formats.
 # The first parameter is an 'id' for the job; output files will use this as base. You can include in it a path to where you want the output files to be located.
 # The second parameter is the input file (the genome as VCF, RCF, var or masterVar).
-# The third (optional) parameter is the format of the input file: 'vcf', 'rcf', 'var' or 'masterVar'. Defaults to 'vcf'.
+# The third (optional) parameter is the format of the input file: 'vcf', 'bcf', 'rcf', 'var' or 'masterVar'. Defaults to 'vcf'.
 # The fourth (optional) parameter is the fingerprint size. Multiple sizes can be specified, comma-delimited. Defaults to including several sizes.
 # The fifth (optional) parameter is the distance between consecutive SNVs that are considered 'too close'. Default is 20.
 # The sixth (optional) parameter is a bed file specifying regions of interest to be included in the analysis. For example, one could specify the definition of exome segments to compute an exome-compatible fingerprint from whole-genome data. This is available only for VCF and RCF input.
@@ -54,13 +54,17 @@ if ($file =~ /\.gz$/) {
 	$cat = 'gunzip -c';
 } elsif ($file =~ /\.bz2$/) {
 	$cat = 'bzcat';
+} elsif ($file =~ /\.bcf$/) {
+	$cat = 'bcftools view';
 }
 my %filter = (
 	'vcf' => "grep -v ^\# | grep -v \"0[\/\|]0\"",
+	'bcf' => "grep -v ^\# | grep -v \"0[\/\|]0\"",
 	'rcf' => 'grep -v ^\#',
 	'masterVar' => 'grep -v no-call',
 	'var' => 'grep -v ref | grep -v no-call');
-my %fields = ('vcf' => '1,2,4,5', 'rcf' => '1,2,5,6',
+my %fields = (
+	'vcf' => '1,2,4,5', 'bcf' => '1,2,4,5', 'rcf' => '1,2,5,6',
 	'masterVar' => '3,4,8,9,10', 'var' => '4,5,8,9');
 
 # Process input file.
