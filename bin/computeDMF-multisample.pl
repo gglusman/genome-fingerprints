@@ -12,7 +12,7 @@ my $numberOfPartitions = 100;
 $out ||= "DMF_multisample_outdir";
 mkdir $out, 0700;
 
-foreach my $file (slicedirlist($dir, "[bv]cf")) {
+FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 	my $cat;
 	if ($file =~ /\.gz$/) {
 		$cat = 'gunzip -c';
@@ -45,7 +45,10 @@ foreach my $file (slicedirlist($dir, "[bv]cf")) {
 		my($chrom, $pos, $rsid, $ref, $alt, $qual, $filter, $infostring, $format, @obs) = split /\t/;
 		$chrom = "chr$chrom" unless $chrom =~ /^chr/;
 		if (-e "$out/$chrom") {
-			next unless $chrom eq $currentChromosome;
+			if ($chrom ne $currentChromosome) {
+				close F;
+				next FILE;
+			}
 		} elsif ($currentChromosome) {
 			die "Unexpected chromosome $chrom when working on $currentChromosome\n";
 		} else {
