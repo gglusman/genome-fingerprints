@@ -2,9 +2,23 @@
 $|=1;
 use strict;
 
-my($dir, $out) = @ARGV;
+my($dir, $vls, $out) = @ARGV;
+
+# First parameter: the directory where the vcfs/bcfs are located. [cwd]
+# Second parameter (optional): the comma-delimited list of fingerprint lengths to compute. [120]
+# Third parameter (optional): the directory where output should be saved. [DFM_multisample_outdir]
+
+unless (length($dir) && -e $dir) {
+	print "Usage: computeDMF-multisample.pl inputDirectory [fingerprintLengths] [outputDirectory]\n";
+	print "       fingerprintLengths defaults to 120; outputDirectory defaults to DMF_multisample_outdir\n";
+	print "Examples: computeDMF-multisample.pl dirWithVCFs\n";
+	print "          computeDMF-multisample.pl dirWithVCFs 20,100\n";
+	print "          computeDMF-multisample.pl dirWithBCFs 0 desiredOutputDir\n";
+	exit;
+}
 
 my @vls = (120);
+@vls = split /,/, $vls if $vls;
 my $tooCloseCutoff = 20;
 my $computeBinary = 0;
 my $computeClose = 0;
@@ -34,7 +48,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 		if (/^#CHROM/) {
 			chomp;
 			(undef, undef, undef, undef, undef, undef, undef, undef, undef, @samples) = split /\t/;
-			print "Found ", scalar @samples, " samples\n";
+			#print "Found ", scalar @samples, " samples\n";
 			last;
 		}
 	}
@@ -55,7 +69,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 			$outdir = "$out/$chrom";
 			mkdir $outdir, 0700;
 			$currentChromosome = $chrom;
-			print $chrom;
+			print "(", scalar @samples, " samples) $chrom";
 		}
 		
 		next if $rsid =~ /CNV/;
@@ -129,8 +143,8 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 		}
 		
 		`gzip -f $outdir/$partition/$sample.*`;
-		print "o" unless $i % 1000;
-		print " " unless $i % 10000;
+		print "o" unless ($i+1) % 1000;
+		print " " unless ($i+1) % 10000;
 	}
 	print "\n";
 }
