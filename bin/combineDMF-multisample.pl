@@ -12,6 +12,7 @@ my @sets = qw/close out binary/;
 
 my(%found, %chroms, %part);
 foreach my $chrom (fulldirlist($data)) {
+	next if $chrom !~ /chr\d/;
 	foreach my $part (fulldirlist("$data/$chrom")) {
 		foreach my $file (fulldirlist("$data/$chrom/$part")) {
 			if ($file =~ /(.+)\.(out|close|binary)\.gz$/) {
