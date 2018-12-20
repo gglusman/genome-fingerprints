@@ -31,6 +31,9 @@ foreach my $chrom (keys %chroms) {
 	if ($chroms{$chrom} != $sorted[0]) {
 		print "Unexpected sample count for $chrom: $chroms{$chrom}, will be skipped\n";
 		delete $chroms{$chrom};
+	} elsif ($chrom !~ /chr\d/) {
+		print "$chrom doesn't seem to be an autosome, will be skipped\n";
+		delete $chroms{$chrom};
 	}
 }
 my @chroms = sort keys %chroms;
