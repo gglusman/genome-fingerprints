@@ -44,6 +44,11 @@ my $chromString = join(",", @chroms);
 foreach my $set (@sets) {
 	mkdir "$outdir/$set", 0700;
 	foreach my $id (keys %{$found{$set}}) {
+		my $part = $part{$id};
+		mkdir "$outdir/$set/$part", 0700;
+		next if -e "$outdir/$set/$part/$id.$set.gz" || -e "$outdir/$set/$part/$id.$set";
+                open OUTF, ">$outdir/$set/$part/$id.$set";
+		close OUTF;
 		if (join(",", sort keys %{$found{$set}{$id}}) != $chromString) {
 			print "Unexpected set of chromosomes for $id: ", join(",", sort keys %{$found{$set}{$id}}), ", will be skipped\n";
 			next;
@@ -87,7 +92,6 @@ foreach my $set (@sets) {
 			}
 		}
 		
-		my $part = $part{$id};
 		mkdir "$outdir/$set/$part", 0700;
 		open OUTF, ">$outdir/$set/$part/$id.$set";
 		print OUTF join("\t", "#SNVpairs", $pairs), "\n";
