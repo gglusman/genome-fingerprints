@@ -25,6 +25,7 @@ my $computeClose = 0;
 my $numberOfPartitions = 100;
 $out ||= "DMF_multisample_outdir";
 mkdir $out, 0700;
+my @keys = qw/ACAC ACAG ACAT ACCA ACCG ACCT ACGA ACGC ACGT ACTA ACTC ACTG AGAC AGAG AGAT AGCA AGCG AGCT AGGA AGGC AGGT AGTA AGTC AGTG ATAC ATAG ATAT ATCA ATCG ATCT ATGA ATGC ATGT ATTA ATTC ATTG CAAC CAAG CAAT CACA CACG CACT CAGA CAGC CAGT CATA CATC CATG CGAC CGAG CGAT CGCA CGCG CGCT CGGA CGGC CGGT CGTA CGTC CGTG CTAC CTAG CTAT CTCA CTCG CTCT CTGA CTGC CTGT CTTA CTTC CTTG GAAC GAAG GAAT GACA GACG GACT GAGA GAGC GAGT GATA GATC GATG GCAC GCAG GCAT GCCA GCCG GCCT GCGA GCGC GCGT GCTA GCTC GCTG GTAC GTAG GTAT GTCA GTCG GTCT GTGA GTGC GTGT GTTA GTTC GTTG TAAC TAAG TAAT TACA TACG TACT TAGA TAGC TAGT TATA TATC TATG TCAC TCAG TCAT TCCA TCCG TCCT TCGA TCGC TCGT TCTA TCTC TCTG TGAC TGAG TGAT TGCA TGCG TGCT TGGA TGGC TGGT TGTA TGTC TGTG/;
 
 FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 	my $cat;
@@ -114,7 +115,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 			print OUTF "#source\t$file\n";
 			print OUTF "#tooCloseCutoff\t$tooCloseCutoff\n";
 			print OUTF "#SNVpairs\t$snvPairs[$i]\n";
-			foreach my $key (sort keys %{$binary[$i]}) {
+			foreach my $key (@keys) {
 				print OUTF join("\t", $key, @{$binary[$i]{$key}}), "\n";
 			}
 			close OUTF;
@@ -125,7 +126,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 		print OUTF "#tooCloseCutoff\t$tooCloseCutoff\n";
 		print OUTF "#SNVpairs\t$snvPairs[$i]\n";
 		foreach my $vl (@vls) {
-			foreach my $key (sort keys %{$count[$i]{$vl}}) {
+			foreach my $key (@keys) {
 				print OUTF join("\t", $vl, $key, @{$count[$i]{$vl}{$key}}), "\n";
 			}
 		}
@@ -136,7 +137,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 			print OUTF "#source\t$file\n";
 			print OUTF "#tooCloseCutoff\t$tooCloseCutoff\n";
 			print OUTF "#SNVpairs\t$snvPairs[$i]\n";
-			foreach my $key (sort keys %{$close[$i]}) {
+			foreach my $key (@keys) {
 				print OUTF join("\t", $key, @{$close[$i]{$key}}), "\n";
 			}
 			close OUTF;
