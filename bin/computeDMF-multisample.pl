@@ -116,7 +116,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 			print OUTF "#tooCloseCutoff\t$tooCloseCutoff\n";
 			print OUTF "#SNVpairs\t$snvPairs[$i]\n";
 			foreach my $key (@keys) {
-				print OUTF join("\t", $key, defined $binary[$i]{$key} ? map {$_ || 0} @{$binary[$i]{$key}} : (0, 0)), "\n";
+				print OUTF join("\t", $key, map {$binary[$i]{$key}[$_] || 0} (0,1)), "\n";
 			}
 			close OUTF;
 		}
@@ -127,7 +127,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 		print OUTF "#SNVpairs\t$snvPairs[$i]\n";
 		foreach my $vl (@vls) {
 			foreach my $key (@keys) {
-				print OUTF join("\t", $vl, $key, defined $count[$i]{$vl}{$key} ? map {$_ || 0} @{$count[$i]{$vl}{$key}} : (0) x $vl), "\n";
+				print OUTF join("\t", $vl, $key, map {$count[$i]{$vl}{$key}[$_] || 0} (0..$vl-1)), "\n";
 			}
 		}
 		close OUTF;
@@ -138,7 +138,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 			print OUTF "#tooCloseCutoff\t$tooCloseCutoff\n";
 			print OUTF "#SNVpairs\t$snvPairs[$i]\n";
 			foreach my $key (@keys) {
-				print OUTF join("\t", $key, defined $close[$i]{$key} ? map {$_ || 0} @{$close[$i]{$key}} : (0) x $tooCloseCutoff), "\n";
+				print OUTF join("\t", $key, map {$close[$i]{$key}[$_] || 0} (0..$tooCloseCutoff-1)), "\n";
 			}
 			close OUTF;
 		}
