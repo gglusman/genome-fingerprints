@@ -142,8 +142,8 @@ close OUTF;
 # Output secondary (short distance) fingerprint table.
 open OUTF, ">$id.$closeFileExt";
 print OUTF $header;
-foreach my $key (sort keys %close) {
-	print OUTF join("\t", $key, @{$close{$key}}), "\n";
+foreach my $key (@keys) {
+	print OUTF join("\t", $key, defined $close{$key} ? map {$_ || 0} @{$close{$key}} : (0) x $C), "\n";
 }
 close OUTF;
 

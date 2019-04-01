@@ -138,7 +138,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 			print OUTF "#tooCloseCutoff\t$tooCloseCutoff\n";
 			print OUTF "#SNVpairs\t$snvPairs[$i]\n";
 			foreach my $key (@keys) {
-				print OUTF join("\t", $key, @{$close[$i]{$key}}), "\n";
+				print OUTF join("\t", $key, defined $close[$i]{$key} ? map {$_ || 0} @{$close[$i]{$key}} : (0) x $tooCloseCutoff), "\n";
 			}
 			close OUTF;
 		}
