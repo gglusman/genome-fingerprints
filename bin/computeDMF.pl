@@ -134,7 +134,7 @@ print OUTF $header;
 print OUTF "#binary\t$bin\n";
 foreach my $vl (@vls) {
 	foreach my $key (@keys) {
-		print OUTF join("\t", $vl, $key, @{$count{$vl}{$key}}), "\n";
+		print OUTF join("\t", $vl, $key, defined $count{$vl}{$key} ? map {$_ || 0} @{$count{$vl}{$key}} : (0) x $vl), "\n";
 	}
 }
 close OUTF;
