@@ -134,7 +134,7 @@ print OUTF $header;
 print OUTF "#binary\t$bin\n";
 foreach my $vl (@vls) {
 	foreach my $key (@keys) {
-		print OUTF join("\t", $vl, $key, defined $count{$vl}{$key} ? map {$_ || 0} @{$count{$vl}{$key}} : (0) x $vl), "\n";
+		print OUTF join("\t", $vl, $key, map {$count{$vl}{$key}[$_] || 0} (0..$vl-1)), "\n";
 	}
 }
 close OUTF;
@@ -143,7 +143,7 @@ close OUTF;
 open OUTF, ">$id.$closeFileExt";
 print OUTF $header;
 foreach my $key (@keys) {
-	print OUTF join("\t", $key, defined $close{$key} ? map {$_ || 0} @{$close{$key}} : (0) x $C), "\n";
+	print OUTF join("\t", $key, map {$close{$key}[$_] || 0} (0..$C-1)), "\n";
 }
 close OUTF;
 
