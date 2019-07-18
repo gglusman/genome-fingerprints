@@ -1,6 +1,6 @@
 #!/bin/env perl
 use strict;
-my $version = '171019';
+my $version = '190718';
 use FindBin qw($Bin);
 ####
 #
@@ -20,6 +20,7 @@ use FindBin qw($Bin);
 #
 # The first parameters is the query set. It can include one or more fingerprints in serialized format. If a non-serialized fingerprint is used as query, it is automatically serialized using the fingerprint size of the target set.
 # The second parameter is the target set: a serialized collection of fingerprints. If absent, all-against-all comparisons are performed in the query set.
+# The third parameter is a correlation cutoff: pairs with similarity below this cutoff are not reported.
 #
 ####
 #
@@ -31,11 +32,13 @@ use FindBin qw($Bin);
 
 my $fpc = "$Bin/fpc";
 die "Cannot find fpc (the search engine)\n" unless -s $fpc;
-my($query, $target) = @ARGV;
+my($query, $target, $cutoff) = @ARGV;
 unless ($query) {
 	print "Usage: searchDMFs.pl fingerprints/genome1.outn.gz target.fp\n";
 	print "       searchDMFs.pl query-set target-set\n";
+	print "       searchDMFs.pl query-set target-set 0.5 (will not report correlations under 0.5)\n";
 	print "       searchDMFs.pl query-set  (will perform all comparisons within the query data set)\n";
+	print "       searchDMFs.pl query-set 0 0.5 (will report correlations at least 0.5, within the query data set)\n";
 	exit;
 }
 
@@ -80,6 +83,7 @@ if ($target) {
 while (<FPC>) {
 	chomp;
 	my($q, $t, $c) = split /\t/;
+	next if defined $cutoff && $c<$cutoff;
 	print join("\t", $qnames->[$q-1], $tnames->[$t-1], $c), "\n";
 }
 close FPC;
