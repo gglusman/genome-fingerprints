@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 $|=1;
 use strict;
-
+my $version = '191217';
 my($dir, $vls, $out) = @ARGV;
 
 # First parameter: the directory where the vcfs/bcfs are located. [cwd]
@@ -58,7 +58,7 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 	while (<F>) {
 		chomp;
 		my($chrom, $pos, $rsid, $ref, $alt, $qual, $filter, $infostring, $format, @obs) = split /\t/;
-		$chrom = "chr$chrom" unless $chrom =~ /^chr/;
+		$chrom = "chr$chrom" unless $chrom =~ /^chr/i;
 		if (-e "$out/$chrom") {
 			if ($chrom ne $currentChromosome) {
 				close F;
@@ -74,6 +74,13 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 		}
 		
 		next if $rsid =~ /CNV/;
+		#if ($alt =~ /,/) {
+		#	my @actualAlts;
+		#	foreach (split /,/, $alt) {
+		#		push @actualAlts, $_ if /^[ACGT]+$/i;
+		#	}
+		#	$alt = join(",", @actualAlts);
+		#}
 		next unless $alt =~ /^[ACGT]$/io && $ref =~ /^[ACGT]$/io;
 		my $key = uc "$ref$alt";
 		

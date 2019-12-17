@@ -1,6 +1,6 @@
 #!/bin/env perl
 use strict;
-my $version = '181217';
+my $version = '191217';
 ####
 #
 # This software computes a genome fingerprint for a single personal genome.
@@ -80,10 +80,19 @@ while (<INF>) {
 	my($chrom, $start, $ref, $var, $othervar) = split /\t/;
 
 	# Focus the analysis on autosomes only, excluding sex chromosomes, mitochondrial chromosome, alternative haplotypes, etc.
-	next unless $chrom =~ /^(chr)?\d+$/;
+	next unless $chrom =~ /^(chr)?\d+$/i;
 	
 	# Interpret othervar statement from masterVar.
 	$var = $othervar if $othervar && $var eq $ref;
+	
+	# Deal with unspecified alt alleles in gvcf
+	if ($var =~ /,/) {
+		my @actualVars;
+		foreach (split /,/, $var) {
+			push @actualVars, $_ if /^[ACGT]+$/i;
+		}
+		$var = join(",", @actualVars);
+	}
 	
 	# Pay attention only to SNVs.
 	next unless $var =~ /^[ACGT]$/i && $ref =~ /^[ACGT]$/i && uc $var ne uc $ref;
