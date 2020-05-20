@@ -64,7 +64,7 @@ if ($query =~ /(.+)\.fp/) {
 	$qnames = readIds("$query.id");
 	$query = "$query.fp";
 } else {
-	`./serializeDMFs.pl tmp$$ $L $query`;
+	`$Bin/serializeDMFs.pl tmp$$ $L $query`;
 	$qnames = readIds("tmp$$.id");
 	unless (@$qnames) {
 		unlink "tmp$$.fp";
