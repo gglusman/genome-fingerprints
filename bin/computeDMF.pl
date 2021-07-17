@@ -95,11 +95,7 @@ if ($bedmask) {
 }
 
 # Process input file.
-if ($bedmask && ($format eq 'vcf' || $format eq 'rcf')) {
-	open INF, "bedtools intersect -a $file -b $bedmask | $filter{$format} | cut -f$fields{$format} |";
-} else {
-	open INF, "$cat $file | $filter{$format} | cut -f$fields{$format} |";
-}
+open INF, "$cat $file | $filter{$format} | cut -f$fields{$format} |";
 while (<INF>) {
 	chomp;
 	my($chrom, $start, $ref, $alts, $othervar) = split /\t/;
