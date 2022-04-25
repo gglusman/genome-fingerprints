@@ -5,15 +5,15 @@ If you find Genome Fingerprints useful for your work, please cite:
 Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal genomes via precomputed genome fingerprints. Front. Genet. 2017 8:136.
 
 1. To create a fingerprint for a genome:  
-	`bin/computeDMF.pl` _myGenome path-to-my-vcfs/myGenome.vcf.gz_  
+	`bin/computeDMF.pl` **myGenome** **path-to-my-vcfs/myGenome.vcf.gz**  
 	...will generate myGenome.outn.gz (and some other files)
 
 2. To compare two fingerprints:  
-	`bin/compareDMFs.pl` _myFirstGenome.outn.gz mySecondGenome.outn.gz_
+	`bin/compareDMFs.pl` **myFirstGenome.outn.gz** **mySecondGenome.outn.gz**
 
 3. To serialize fingerprints into a database, using L=120:  
-	`bin/serializeDMFs.pl` _myFingerprintCollection_ 120 _@myListOfFingerprints_  
-	`bin/serializeDMFs.pl` _myFingerprintCollection_ 120 _*.outn.gz_
+	`bin/serializeDMFs.pl` **myFingerprintCollection** 120 **@myListOfFingerprints**  
+	`bin/serializeDMFs.pl` **myFingerprintCollection** 120 **\*.outn.gz**
 
 4. To compare a fingerprint to a database:  
 	`bin/searchDMFs.pl` _myGenome.outn.gz myFingerprintCollection_  
