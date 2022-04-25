@@ -25,4 +25,20 @@ Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal g
 6. To perform all-against-all comparisons in one database:  
 	`bin/searchDMFs.pl` _aFingerprintCollection_
 
-This project is related to (but distinct from) the Genotype Fingerprints: https://github.com/gglusman/genotype-fingerprints
+To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, _TGP_ represents the directory where you have your copy of the TGP data.
+
+1. Compute raw fingerprints per chromosome:  
+	`bin/computeDMF1000genomes.pl` _TGP_
+
+2. Combine the raw fingerprints:  
+	`bin/combineDMF1000genomes.pl` _TGP_
+
+3. Normalize them:  
+	`bin/normalizeDMFsInDir.pl` _TGP_/autosomal
+
+4. Serialize the normalized fingerprints:  
+	`bin/serializeDMFs.pl` _TGP_/_TGP_-200_ 200 _TGP_/autosomal.norm/*.gz
+
+5. Do all-against-all comparison within the set:  
+	`bin/searchDMFs.pl` _TGP_/_TGP_-200 | sort -k3rn | gzip -c > _TGP_/_TGP_.aaa.gz
+
