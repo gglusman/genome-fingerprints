@@ -9,6 +9,8 @@ Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal g
 To install this software, simply clone this repository:  
 	`git clone https://github.com/gglusman/genome-fingerprints`
 
+This software works best on whole-genome sequencing (WGS) data, in VCF and some other formats. The data type analyzed by this software is variants relative to a reference genome. Therefore, FASTQ, BAM, CRAM and the like are not valid input formats.
+
 ## Computing and comparing fingerprints
 
 Here are example commands on how to compute fingerprints from genomes that are represented separately, each one in its own VCF, and then how to compare the resulting fingerprints. Anything in **bold**, please replace with parameter values and file names that make sense for your project.
@@ -65,3 +67,17 @@ For example, if you have the GRCh37 version of the TGP in a directory called TGP
 `	zcat TGP37fp/TGP37.aaa.gz | bin/findSurprises.pl`
 
 Note that `bin/computeDMF1000genomes.pl` can be run in parallel copies to process more than one chromosome at a time, if your system has enough memory. Similarly, `bin/normalizeDMFsInDir.pl` can be run in concurrent jobs, if needed.
+
+The TGP datasets can be downloaded as follows. Beware, these are big downloads!
+
+TGP37: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/  
+TGP38L: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/GRCh38_positions/  
+TGP38C: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/phase3_liftover_nygc_dir/  
+TGP38S: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/release/20181203_biallelic_SNV/  
+TGP38X: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/release/20190312_biallelic_SNV_and_INDEL/  
+TGP38H: ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20190425_NYGC_GATK/  
+TGP38N and TGP38Nr: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20201028_3202_phased/  
+TGP37r: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/supporting/related_samples_vcf/  
+TGP38Sr: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/release/20181203_biallelic_SNV/supporting/related_samples/  
+TGP38Xr: http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/release/20190312_biallelic_SNV_and_INDEL/supporting/related_samples/
+
