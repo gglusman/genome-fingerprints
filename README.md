@@ -55,7 +55,7 @@ For example, if you have the GRCh37 version of the TGP in a directory called TGP
 `	bin/combineDMF1000genomes.pl TGP37fp`  
 `	bin/normalizeDMFsInDir.pl TGP37fp/autosomal`  
 `	bin/serializeDMFs.pl TGP37fp/TGP37-200 200 TGP37fp/autosomal.norm/*.gz`  
-`	bin/searchDMFs.pl TGP37fp/TGP37-200 | sort -k3rn | gzip -c > TGP37fp/TGP37.aaa.gz`
+`	bin/searchDMFs.pl TGP37fp/TGP37-200 | sort -k3rn | gzip -c > TGP37fp/TGP37.aaa.gz`  
 `	zcat TGP37fp/TGP37.aaa.gz | bin/findSurprises.pl`
 
 Note that `bin/computeDMF1000genomes.pl` can be run in parallel copies to process more than one chromosome at a time, if your system has enough memory. Similarly, `bin/normalizeDMFsInDir.pl` can be run in concurrent jobs, if needed.
