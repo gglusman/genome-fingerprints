@@ -12,18 +12,18 @@ Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal g
 	`bin/compareDMFs.pl` **myFirstGenome.outn.gz** **mySecondGenome.outn.gz**
 
 3. To serialize fingerprints into a database, using L=120:  
-	`bin/serializeDMFs.pl` **myFingerprintCollection** 120 **@myListOfFingerprints**  
+	`bin/serializeDMFs.pl` **myFingerprintCollection** 120 @**myListOfFingerprints**  
 	`bin/serializeDMFs.pl` **myFingerprintCollection** 120 **\*.outn.gz**
 
 4. To compare a fingerprint to a database:  
-	`bin/searchDMFs.pl` _myGenome.outn.gz myFingerprintCollection_  
+	`bin/searchDMFs.pl` **myGenome.outn.gz** **myFingerprintCollection**  
 	...see the data directory for an example database (CEPH1463 pedigree)
 
 5. To compare two databases:  
-	`bin/searchDMFs.pl` _aFingerprintCollection anotherFingerprintCollection_
+	`bin/searchDMFs.pl` **aFingerprintCollection** **anotherFingerprintCollection**
 
 6. To perform all-against-all comparisons in one database:  
-	`bin/searchDMFs.pl` _aFingerprintCollection_
+	`bin/searchDMFs.pl` **aFingerprintCollection**
 
 To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, **TGP** represents the TGP version, **TGPdata** is the directory where you have your copy of the TGP data, and **TGPfp** represents the directory where the fingerprints will be stored.
 
