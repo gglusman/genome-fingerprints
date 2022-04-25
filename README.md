@@ -4,10 +4,14 @@ More information and datasets: http://db.systemsbiology.net/gestalt/genome_finge
 If you find Genome Fingerprints useful for your work, please cite:  
 Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal genomes via precomputed genome fingerprints. Front. Genet. 2017 8:136.
 
+## Installing
+
 To install this software, simply clone this repository:  
 	`git clone https://github.com/gglusman/genome-fingerprints`
 
-Here are example commands on how to compute fingerprints, and then how to compare them. Anything in **bold**, please replace with parameter values and file names that make sense for your project.
+## Computing and comparing fingerprints
+
+Here are example commands on how to compute fingerprints from genomes that are represented separately, each one in its own VCF, and then how to compare the resulting fingerprints. Anything in **bold**, please replace with parameter values and file names that make sense for your project.
 
 1. To create a fingerprint for a genome:  
 	`bin/computeDMF.pl` **myGenome** **path-to-my-vcfs/myGenome.vcf.gz**  
@@ -32,6 +36,8 @@ Here are example commands on how to compute fingerprints, and then how to compar
 
 7. To find surprises in the comparison:  
 	cat **comparison.aaa** | `bin/findSurprises.pl` > **surprises.txt** 
+
+## Working with large datasets
 
 To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, **TGP** represents the TGP version, **TGPdata** is the directory where you have your copy of the TGP data, and **TGPfp** represents the directory where the fingerprints will be stored.
 
