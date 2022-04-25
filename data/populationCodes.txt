@@ -1,0 +1,34 @@
+AFR	ACB	African Caribbean in Barbados
+SAS	AHD	the Ahom in Dibrugarh, India (AHD)
+AMR	AJM	African American in Jackson, Mississippi
+AMR	ASW	HapMap African ancestry individuals from SW US
+SAS	BEB	Bengali from Bangladesh
+EAS	CDX	Chinese Dai in Xishuangbanna, China
+EUR	CEU	CEPH individuals
+EAS	CHB	(CHB) Han Chinese in Beijing
+EAS	CHD	Chinese in metropolitan Denver, CO
+EAS	CHS	(CHB) Han Chinese South
+AMR	CLM	Colombian in Medellin, Colombia
+AFR	ESN	Esan in Nigeria
+EUR	FIN	HapMap Finnish individuals from Finland
+EUR	GBR	British individuals from England and Scotland (GBR)
+AFR	GHN	Ghanaian in Navrongo, Ghana
+SAS	GIH	HapMap Gujarati India individuals from Texas
+AFR	GWD	Gambian in Western Division, The Gambia
+EUR	IBS	Iberian populations in Spain
+SAS	ITU	Indian Telugu from the UK
+EAS	JPT	JPT Japanese individuals
+EAS	KHV	Kinh in Ho Chi minh City, Vietnam
+AFR	LWK	(LWK) Luhya individuals
+AFR	MAB	Malawian in Blantyre, Malawi
+AFR	MKK	HapMap Maasai individuals from Kenya
+SAS	MRM	the Maratha in Mumbai, India (MRM)
+AMR	MXL	HapMap Mexican individuals from LA California
+AFR	MSL	Mende in Sierra Leone
+AMR	PEL	Peruvian in Lima, Peru
+SAS	PJL	(PJL) Punjabi HapMap population
+AMR	PUR	Puerto Rican in Puerto Rico
+SAS	RDH	the Reddy in Hyderabad, India (RDH)
+SAS	STU	Sri Lankan Tamil from the UK
+EUR	TSI	Toscan individuals
+AFR	YRI	(YRI) Yoruba individuals
