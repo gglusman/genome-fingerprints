@@ -4,6 +4,8 @@ More information and datasets: http://db.systemsbiology.net/gestalt/genome_finge
 If you find Genome Fingerprints useful for your work, please cite:  
 Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal genomes via precomputed genome fingerprints. Front. Genet. 2017 8:136.
 
+Here are example commands on how to compute fingerprints, and then how to compare them. Anything in **bold**, please replace with parameter values and file names that make sense for your project.
+
 1. To create a fingerprint for a genome:  
 	`bin/computeDMF.pl` **myGenome** **path-to-my-vcfs/myGenome.vcf.gz**  
 	...will generate myGenome.outn.gz (and some other files)
@@ -20,10 +22,13 @@ Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal g
 	...see the data directory for an example database (CEPH1463 pedigree)
 
 5. To compare two databases:  
-	`bin/searchDMFs.pl` **aFingerprintCollection** **anotherFingerprintCollection**
+	`bin/searchDMFs.pl` **aFingerprintCollection** **anotherFingerprintCollection** > **setAvsB.aaa**
 
 6. To perform all-against-all comparisons in one database:  
-	`bin/searchDMFs.pl` **aFingerprintCollection**
+	`bin/searchDMFs.pl` **aFingerprintCollection** > **setA.aaa**
+
+7. To find surprises in the comparison:  
+	cat **comparison.aaa** | `bin/findSurprises.pl` > **surprises.txt** 
 
 To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, **TGP** represents the TGP version, **TGPdata** is the directory where you have your copy of the TGP data, and **TGPfp** represents the directory where the fingerprints will be stored.
 
@@ -48,5 +53,6 @@ For example, if you have the GRCh37 version of the TGP in a directory called TGP
 `	bin/normalizeDMFsInDir.pl TGP37fp/autosomal`  
 `	bin/serializeDMFs.pl TGP37fp/TGP37-200 200 TGP37fp/autosomal.norm/*.gz`  
 `	bin/searchDMFs.pl TGP37fp/TGP37-200 | sort -k3rn | gzip -c > TGP37fp/TGP37.aaa.gz`
+`	zcat TGP37fp/TGP37.aaa.gz | bin/findSurprises.pl`
 
 Note that `bin/computeDMF1000genomes.pl` can be run in parallel copies to process more than one chromosome at a time, if your system has enough memory. Similarly, `bin/normalizeDMFsInDir.pl` can be run in concurrent jobs, if needed.
