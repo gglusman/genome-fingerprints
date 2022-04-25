@@ -4,6 +4,9 @@ More information and datasets: http://db.systemsbiology.net/gestalt/genome_finge
 If you find Genome Fingerprints useful for your work, please cite:  
 Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal genomes via precomputed genome fingerprints. Front. Genet. 2017 8:136.
 
+To install this software, simply clone this repository:  
+	`git clone https://github.com/gglusman/genome-fingerprints`
+
 Here are example commands on how to compute fingerprints, and then how to compare them. Anything in **bold**, please replace with parameter values and file names that make sense for your project.
 
 1. To create a fingerprint for a genome:  
