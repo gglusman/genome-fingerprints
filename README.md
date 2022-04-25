@@ -1,7 +1,8 @@
 # genome-fingerprints
 Software for creating and comparing genome fingerprints.  
 More information and datasets: http://db.systemsbiology.net/gestalt/genome_fingerprints/  
-Preprint: http://www.biorxiv.org/content/early/2017/06/27/130807
+If you find Genome Fingerprints useful for your work, please cite:  
+Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal genomes via precomputed genome fingerprints. Front. Genet. 2017 8:136.
 
 1. To create a fingerprint for a genome:  
 	`bin/computeDMF.pl` _myGenome path-to-my-vcfs/myGenome.vcf.gz_  
