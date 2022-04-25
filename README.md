@@ -25,20 +25,27 @@ Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal g
 6. To perform all-against-all comparisons in one database:  
 	`bin/searchDMFs.pl` _aFingerprintCollection_
 
-To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, _TGP_ represents the directory where you have your copy of the TGP data.
+To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, _TGP_ represents the TGP version, _TGPdata_ is the directory where you have your copy of the TGP data, and _TGPfp_ represents the directory where the fingerprints will be stored.
 
 1. Compute raw fingerprints per chromosome:  
-	`bin/computeDMF1000genomes.pl` _TGP_
+	`bin/computeDMF1000genomes.pl` _TGPdata_ _TGPfp_
 
 2. Combine the raw fingerprints:  
-	`bin/combineDMF1000genomes.pl` _TGP_
+	`bin/combineDMF1000genomes.pl` _TGPfp_
 
 3. Normalize them:  
-	`bin/normalizeDMFsInDir.pl` _TGP_/autosomal
+	`bin/normalizeDMFsInDir.pl` _TGPfp_/autosomal
 
-4. Serialize the normalized fingerprints:  
-	`bin/serializeDMFs.pl` _TGP_/_TGP_-200_ 200 _TGP_/autosomal.norm/*.gz
+4. Serialize the normalized fingerprints, using L=200:  
+	`bin/serializeDMFs.pl` _TGPfp_/_TGP_-200 200 _TGPfp_/autosomal.norm/*.gz
 
 5. Do all-against-all comparison within the set:  
-	`bin/searchDMFs.pl` _TGP_/_TGP_-200 | sort -k3rn | gzip -c > _TGP_/_TGP_.aaa.gz
+	`bin/searchDMFs.pl` _TGPfp_/_TGP_-200 | sort -k3rn | gzip -c > _TGPfp_/_TGP_.aaa.gz
+
+For example, if you have the GRCh37 version of the TGP in a directory called TGP37:
+	`bin/computeDMF1000genomes.pl` TGP37 TGP37fp  
+	`bin/combineDMF1000genomes.pl` TGP37fp  
+	`bin/normalizeDMFsInDir.pl` TGP37fp/autosomal  
+	`bin/serializeDMFs.pl` TGP37fp/TGP37-200 200 TGP37fp/autosomal.norm/*.gz  
+	`bin/searchDMFs.pl` TGP37fp/TGP37-200 | sort -k3rn | gzip -c > TGP37fp/TGP37.aaa.gz
 
