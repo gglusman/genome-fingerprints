@@ -25,22 +25,22 @@ Glusman G, Mauldin DE, Hood L and Robinson M. Ultrafast comparison of personal g
 6. To perform all-against-all comparisons in one database:  
 	`bin/searchDMFs.pl` _aFingerprintCollection_
 
-To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, _TGP_ represents the TGP version, _TGPdata_ is the directory where you have your copy of the TGP data, and _TGPfp_ represents the directory where the fingerprints will be stored.
+To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, **TGP** represents the TGP version, **TGPdata** is the directory where you have your copy of the TGP data, and **TGPfp** represents the directory where the fingerprints will be stored.
 
 1. Compute raw fingerprints per chromosome:  
-	`bin/computeDMF1000genomes.pl` _TGPdata_ _TGPfp_
+	`bin/computeDMF1000genomes.pl` **TGPdata** **TGPfp**
 
 2. Combine the raw fingerprints:  
-	`bin/combineDMF1000genomes.pl` _TGPfp_
+	`bin/combineDMF1000genomes.pl` **TGPfp**
 
 3. Normalize them:  
-	`bin/normalizeDMFsInDir.pl` _TGPfp_/autosomal
+	`bin/normalizeDMFsInDir.pl` **TGPfp**/autosomal
 
 4. Serialize the normalized fingerprints, using L=200:  
-	`bin/serializeDMFs.pl` _TGPfp_/_TGP_-200 200 _TGPfp_/autosomal.norm/*.gz
+	`bin/serializeDMFs.pl` **TGPfp**/**TGP**-200 200 **TGPfp**/autosomal.norm/*.gz
 
 5. Do all-against-all comparison within the set:  
-	`bin/searchDMFs.pl` _TGPfp_/_TGP_-200 | sort -k3rn | gzip -c > _TGPfp_/_TGP_.aaa.gz
+	`bin/searchDMFs.pl` **TGPfp**/**TGP**-200 | sort -k3rn | gzip -c > **TGPfp**/**TGP**.aaa.gz
 
 For example, if you have the GRCh37 version of the TGP in a directory called TGP37, the actual commands would be:  
 `	bin/computeDMF1000genomes.pl TGP37 TGP37fp`  
