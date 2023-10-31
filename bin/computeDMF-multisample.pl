@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 $|=1;
 use strict;
-my $version = '191217';
+my $version = '231031';
 my($dir, $vls, $out) = @ARGV;
 
 # This script computes genome fingerprints for one or more samples, expecting each chromosome to be in a separate VCF file.

@@ -1,6 +1,14 @@
 #!/usr/bin/env perl
 $|=1;
 use strict;
+my $version = '231031';
+
+####
+#
+# This script combines partial (per-chromosome) genome fingerprints that were computed by the computeDMF-multiVCF.pl script.
+#
+####
+
 
 my($data, $outdir) = @ARGV;
 
