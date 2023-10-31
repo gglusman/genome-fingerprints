@@ -57,6 +57,8 @@ while (<F>) {
 	chomp;
 	my($chrom, $pos, $rsid, $ref, $alts, $qual, $filter, $infostring, $format, @obs) = split /\t/;
 	#$chrom = "chr$chrom" unless $chrom =~ /^chr/;
+	$chrom =~ s/^chr//i;
+	next unless $chrom =~ /^\d+$/; # retain only autosomes
 	if ($chrom ne $prevChrom) {
 		$prevChrom = $chrom;
 		@prevPos = @prevKey = ();
