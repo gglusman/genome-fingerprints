@@ -10,7 +10,7 @@ my $version = '171019';
 #    10.3389/fgene.2017.00136. eCollection 2017. PubMed PMID: 29018478; PubMed Central
 #    PMCID: PMC5623000.
 # 
-# Copyright 2017 by Gustavo Glusman, Institute for Systems Biology, Seattle, WA, USA.
+# Copyright 2017 by Gwenlyn Glusman, Institute for Systems Biology, Seattle, WA, USA.
 # It is provided by the Institute for Systems Biology as open source software,
 # free for non-commercial use.
 # See the accompanying LICENSE file for information about the governing license.
