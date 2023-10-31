@@ -1,6 +1,7 @@
 #!/bin/env perl
 $|=1;
 use strict;
+my $version = '231031';
 
 my($file, $vls, $outdir) = @ARGV;
 
