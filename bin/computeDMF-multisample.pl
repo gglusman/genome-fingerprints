@@ -4,6 +4,7 @@ use strict;
 my $version = '191217';
 my($dir, $vls, $out) = @ARGV;
 
+# This script computes genome fingerprints for one or more samples, expecting each chromosome to be in a separate VCF file.
 # First parameter: the directory where the vcfs/bcfs are located. [cwd]
 # Second parameter (optional): the comma-delimited list of fingerprint lengths to compute. [120]
 # Third parameter (optional): the directory where output should be saved. [DFM_multisample_outdir]
@@ -114,6 +115,8 @@ FILE: foreach my $file (slicedirlist($dir, "[bv]cf")) {
 	
 	foreach my $i (0..$#samples) {
 		my $sample = $samples[$i];
+		$sample =~ s/[^a-z0-9\-\.]+//i; #sanitize sample names before they become part of filepaths!!
+        	$sample ||= "_sample_$i";
 		my $partition = partition($sample);
 		mkdir "$outdir/$partition", 0700;
 		
