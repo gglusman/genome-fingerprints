@@ -56,6 +56,7 @@ while (<F>) {
 	exit if -e 'stop';
 	chomp;
 	my($chrom, $pos, $rsid, $ref, $alts, $qual, $filter, $infostring, $format, @obs) = split /\t/;
+	next if $chrom =~ /\D/;
 	#$chrom = "chr$chrom" unless $chrom =~ /^chr/;
 	if ($chrom ne $prevChrom) {
 		$prevChrom = $chrom;
