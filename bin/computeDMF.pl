@@ -101,8 +101,8 @@ while (<INF>) {
 	my($chrom, $start, $ref, $alts, $othervar) = split /\t/;
 
 	# Focus the analysis on autosomes only, excluding sex chromosomes, mitochondrial chromosome, alternative haplotypes, etc.
-	$chrom =~ s/^chr//;
-	next unless $chrom =~ /^\d+$/i; # retain only autosomes
+	$chrom =~ s/^chr//i;
+	next unless $chrom =~ /^\d+$/; # retain only autosomes
 	next unless $ref =~ /^[ACGT]$/io;
 	
 	# Interpret othervar statement from masterVar.
