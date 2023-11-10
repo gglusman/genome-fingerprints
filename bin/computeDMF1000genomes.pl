@@ -3,11 +3,12 @@ $|=1;
 use strict;
 use FindBin qw($Bin);
 
-my($set, $outdir, @todo) = @ARGV;
+my($set, $vls, $outdir, @todo) = @ARGV;
 die "No output directory specified.\n" unless $outdir;
 die "It is not recommended to use the same input directory also for the fingerprinting output.\n" if $set eq $outdir;
 @todo = (1..22) unless @todo;
 my @vls = (200);
+@vls = split /,/, $vls if $vls;
 my $tooCloseCutoff = 20;
 
 my $tgd = "1000Genomes";
@@ -25,55 +26,55 @@ foreach my $c (@todo){ #, 'X', 'Y') {
 	
 	if ($set eq 'TGP37') {
 		#TGP37:
-		$file = "phase3_no_anno/ALL.$chrom.phase3_shapeit2_mvncall_integrated_v5.20130502.genotypes.vcf.gz";
-		$file = "phase3_no_anno/ALL.chrX.phase3_shapeit2_mvncall_integrated.20130502.genotypes.vcf.gz" if $c eq 'X';
-		$file = "phase3_no_anno/ALL.chrY.phase3_integrated.20130502.genotypes.vcf.gz" if $c eq 'Y';
+		$file = "ALL.$chrom.phase3_shapeit2_mvncall_integrated_v5.20130502.genotypes.vcf.gz";
+		$file = "ALL.chrX.phase3_shapeit2_mvncall_integrated.20130502.genotypes.vcf.gz" if $c eq 'X';
+		$file = "ALL.chrY.phase3_integrated.20130502.genotypes.vcf.gz" if $c eq 'Y';
 	} elsif ($set eq 'TGP37r') {
 		#TGP37r
-		$file = "phase3_hg19_related_samples/ALL.$chrom.phase3_shapeit2_mvncall_integrated_v5_related_samples.20130502.genotypes.vcf.gz";
+		$file = "ALL.$chrom.phase3_shapeit2_mvncall_integrated_v5_related_samples.20130502.genotypes.vcf.gz";
 	} elsif ($set eq 'TGP37p1') {
 		#TGP37p1
-		$file = "phase1/ALL.$chrom.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
+		$file = "ALL.$chrom.phase1_release_v3.20101123.snps_indels_svs.genotypes.vcf.gz";
 	} elsif ($set eq 'TGP38') {
 		#TGP38
-		$file = "20190312_biallelic_SNV_and_INDEL/ALL.$chrom.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz";
+		$file = "ALL.$chrom.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz";
 	} elsif ($set eq 'TGP38r') {
 		#TGP38r
-		$file = "20190312_biallelic_SNV_and_INDEL/related_samples/ALL.$chrom.shapeit2_integrated_snvindels_v2a_related_samples_27022019.GRCh38.phased.vcf.gz";
+		$file = "related_samples/ALL.$chrom.shapeit2_integrated_snvindels_v2a_related_samples_27022019.GRCh38.phased.vcf.gz";
 	} elsif ($set eq 'TGP38S') {
 		#TGP38S
-		$file = "20181203_biallelic_SNV/ALL.$chrom.shapeit2_integrated_v1a.GRCh38.20181129.phased.vcf.gz";
+		$file = "ALL.$chrom.shapeit2_integrated_v1a.GRCh38.20181129.phased.vcf.gz";
 	} elsif ($set eq 'TGP38Sr') {
 		#TGP38Sr
-		$file = "20181203_biallelic_SNV/related_samples/ALL.$chrom.shapeit2_integrated_v1a_related_samples.GRCh38.20181129.phased.vcf.gz";
+		$file = "related_samples/ALL.$chrom.shapeit2_integrated_v1a_related_samples.GRCh38.20181129.phased.vcf.gz";
 	} elsif ($set eq 'TGP38L') {
 		#TGP38L
-		$file = "phase3_hg38_liftover/ALL.${chrom}_GRCh38.genotypes.20170504.vcf.gz";
+		$file = "ALL.${chrom}_GRCh38.genotypes.20170504.vcf.gz";
 	} elsif ($set eq 'TGP38H') {
 		#TGP38H
-		$file = "TGP38H/CCDG_13607_B01_GRM_WGS_2019-02-19_${chrom}.recalibrated_variants.vcf.gz";
+		$file = "CCDG_13607_B01_GRM_WGS_2019-02-19_${chrom}.recalibrated_variants.vcf.gz";
 	} elsif ($set eq 'TGP38N') {
 		#TGP38N
 		#$file = "TGP38N/CCDG_14151_B01_GRM_WGS_2020-08-05_${chrom}.filtered.shapeit2-duohmm-phased.vcf.gz";
-		$file = "TGP38N/${chrom}.vcf.gz";
+		$file = "${chrom}.vcf.gz";
 	} elsif ($set eq 'TGP38Nn') {
 		#normalized version of TGP38N
-		$file = "TGP38Nn/${chrom}.vcf.gz";
+		$file = "${chrom}.vcf.gz";
 	} elsif ($set eq 'TGP38Nr') {
 		#TGP38Nr
-		$file = "TGP38Nr/${chrom}.vcf.gz";
+		$file = "${chrom}.vcf.gz";
 	} elsif ($set eq 'TGP38C') {
 		#TGP38C
-		$file = "TGP38C/phase3.${chrom}.GRCh38.GT.crossmap.vcf.gz";
+		$file = "phase3.${chrom}.GRCh38.GT.crossmap.vcf.gz";
 	} elsif ($file = "TGP38Cn") {
 		#normalized version of TGP38C
-		$file = "TGP38Cn/phase3.${chrom}.GRCh38.GT.crossmap.vcf.gz";
-	} else {
-		die "I don't recognize set $set\n";
+		$file = "phase3.${chrom}.GRCh38.GT.crossmap.vcf.gz";
 	}
 	
-	if (-e "$tgd/$file") {
-		process("$tgd/$file", "$outdir/$chrom");
+	if (-e "$set/$file") {
+		process("$set/$file", "$outdir/$chrom");
+	} elsif (-e "$tgd/$set/$file") {
+		process("$tgd/$set/$file", "$outdir/$chrom");
 	} else {
 		print "Cannot find $file\n";
 	}
