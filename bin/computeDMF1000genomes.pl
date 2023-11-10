@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/bin/env perl
 $|=1;
 use strict;
 use FindBin qw($Bin);
