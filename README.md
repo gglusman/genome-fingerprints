@@ -43,8 +43,8 @@ Here are example commands on how to compute fingerprints from genomes that are r
 
 To compute fingerprints for a large dataset, like the Thousand Genomes Project (TGP), that is made available as a collection of per-chromosome multi-sample VCFs, use the following protocol. In the commands below, **TGP** represents the TGP version, **TGPdata** is the directory where you have your copy of the TGP data, and **TGPfp** represents the directory where the fingerprints will be stored.
 
-1. Compute raw fingerprints per chromosome:  
-	`bin/computeDMF1000genomes.pl` **TGPdata** **TGPfp**
+1. Compute raw fingerprints per chromosome, using L=120 and L=200:  
+	`bin/computeDMF1000genomes.pl` **TGPdata** 120,200 **TGPfp**
 
 2. Combine the raw fingerprints:  
 	`bin/combineDMF1000genomes.pl` **TGPfp**
@@ -58,8 +58,8 @@ To compute fingerprints for a large dataset, like the Thousand Genomes Project (
 5. Do all-against-all comparison within the set:  
 	`bin/searchDMFs.pl` **TGPfp**/**TGP**-200 | sort -k3rn | gzip -c > **TGPfp**/**TGP**.aaa.gz
 
-For example, if you have the GRCh37 version of the TGP in a directory called TGP37, the actual commands would be:  
-`	bin/computeDMF1000genomes.pl TGP37 TGP37fp`  
+For example, if you have the GRCh37 version of the TGP in a directory called TGP37, and you wanted to produce and compare fingerprints with L=200, the actual commands would be:  
+`	bin/computeDMF1000genomes.pl TGP37 200 TGP37fp`  
 `	bin/combineDMF1000genomes.pl TGP37fp`  
 `	bin/normalizeDMFsInDir.pl TGP37fp/autosomal`  
 `	bin/serializeDMFs.pl TGP37fp/TGP37-200 200 TGP37fp/autosomal.norm/*.gz`  
