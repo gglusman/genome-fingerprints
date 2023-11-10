@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/bin/env perl
 $|=1;
 use strict;
 my $version = '231031';
