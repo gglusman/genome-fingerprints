@@ -2,3 +2,4 @@
 .DS_Store
 bin/computeDMF.pl~
 *.pl~
+*.md~
