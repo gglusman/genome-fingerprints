@@ -16,7 +16,6 @@ unless (length($file) && -e $file) {
 	exit;
 }
 
-my $tooCloseCutoff = 20;
 $outfile ||= "count_sites.out";
 
 my $cat;
@@ -73,7 +72,6 @@ close F;
 
 open  OUTF, ">$outfile";
 print OUTF "#source\t$file\n";
-print OUTF "#tooCloseCutoff\t$tooCloseCutoff\n";
 
 foreach my $i (0..$#samples) {
 	print OUTF join("\t", $samples[$i], @{$count[$i]}), "\n";
